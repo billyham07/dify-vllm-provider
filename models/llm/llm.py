@@ -75,6 +75,7 @@ class VllmLargeLanguageModel(OAICompatLargeLanguageModel):
         if "enable_thinking" in model_parameters:
             model_parameters["chat_template_kwargs"] = {
                 "enable_thinking": model_parameters.get("enable_thinking", False)}
+            model_parameters.pop("enable_thinking", None)
 
         if "json_schema" in model_parameters:
             model_parameters["guided_json"] = model_parameters.pop("json_schema")
