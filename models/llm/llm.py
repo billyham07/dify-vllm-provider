@@ -73,9 +73,9 @@ class VllmLargeLanguageModel(OAICompatLargeLanguageModel):
         # In the vllm framework, when using deep-thinking models, the thinking feature is enabled by default.
         # Therefore, when no parameters are passed, vllm's responses will include thought results.
         if "enable_thinking" in model_parameters:
-            model_parameters["chat_template_kwargs"] = {
-                "enable_thinking": model_parameters.get("enable_thinking", False)}
-            model_parameters.pop("enable_thinking", None)
+            val = bool(model_parameters.pop("enable_thinking"))
+			model_parameters.setdefault("chat_template_kwargs", {})
+			model_parameters["chat_template_kwargs"]["thinking"] = val
 
         if "json_schema" in model_parameters:
             model_parameters["guided_json"] = model_parameters.pop("json_schema")
